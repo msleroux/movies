@@ -1,11 +1,20 @@
 header{
     color:black;
-    font-family: 'Bowlby One SC', cursive;
+
 }
 
+header>a{
+    text-decoration: none;
+    color:whitesmoke;
+}
 #header-jumbo{
     background-image: url("../img/metal-plate.png");
 
+}
+
+#header-title{
+    font-family: 'Bowlby One SC', cursive;
+    font-size: xx-large;
 }
 
 h1{
@@ -16,9 +25,13 @@ main{
 
 }
 
-a:link {
+header a {
+    color:whitesmoke;
+}
+
+header a:link {
     text-decoration: none;
-    color:black;
+
 }
 
 footer{
@@ -27,18 +40,20 @@ footer{
 }
 
 
-#header-title{
-    font-family: Gulim, cursive;
-    font-size: xx-large;
-}
-
 body{
     background-color: #262626;
     color:whitesmoke;
 }
 
 
-
 #card{
     margin:20px;
+}
+
+.card-body{
+    color:black;
+}
+
+.italique{
+    font-style: italic;
 }
