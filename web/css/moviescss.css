@@ -1,0 +1,21 @@
+header{
+    color:black;
+}
+
+
+
+a:link {
+    text-decoration: none;
+    color:black;
+}
+
+footer{
+    background-image: url("../img/fond.jpg");
+    color:white;
+}
+
+
+#header-title{
+    font-family: Gulim, cursive;
+    font-size: xx-large;
+}
