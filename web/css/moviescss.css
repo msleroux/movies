@@ -1,17 +1,19 @@
 header{
     color:black;
+    font-family: 'Bowlby One SC', cursive;
 }
 
 #header-jumbo{
     background-image: url("../img/metal-plate.png");
+
 }
 
-
-
-
+h1{
+    color:whitesmoke;
+}
 main{
     align-self: center;
-    color:whitesmoke;
+
 }
 
 a:link {
@@ -32,4 +34,11 @@ footer{
 
 body{
     background-color: #262626;
+    color:whitesmoke;
+}
+
+
+
+#card{
+    margin:20px;
 }

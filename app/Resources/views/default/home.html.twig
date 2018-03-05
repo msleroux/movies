@@ -2,12 +2,19 @@
 
 {% block main %}
     <h1>Welcome on movies!</h1>
-
-    {% for movie in movies %}
-        <a href="{{ path('movie_detail',{id: movie.id}) }}">
-            <img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film">
-        </a>
-
-    {% endfor %}
-
+    <div class="container">
+        <div class="row">
+            {% for movie in movies %}
+                <div id="card" class="col-sm-6 col-lg-4">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ asset('posters/'~movie.imdbId~'.jpg') }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <a href="{{ path('movie_detail',{id: movie.id}) }}" class="btn btn-primary">See more</a>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
