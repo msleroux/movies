@@ -12,7 +12,7 @@
     <body>
         <div class="container-fluid">
             <header class="container">
-                <div id="header-logo" class="d-flex flex-row jumbotron" >
+                <div id="header-jumbo" class="d-flex flex-row jumbotron" >
                     <a href="{{ path('home') }}">
                         <img id="header-logo" class="p-2" src="{{ asset('img/icon.png') }}" alt="Movies logo">
                         <div id="header-title"><a href="{{ path('home') }}">Movies!</a></div>
@@ -53,13 +53,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ path('home') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        {#<a class="nav-link" href="{{ path('#') }}">Qui sommes-nous ?</a>#}
-                    </li>
-
                 </ul>
 
-                <p align="center">&copy; {{ "now"|date("Y") }} Bucket-List</p>
+                <p align="center">&copy; {{ "now"|date("Y") }} Movies</p>
             </footer>
 
 
