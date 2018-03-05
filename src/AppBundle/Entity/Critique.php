@@ -35,6 +35,13 @@ class Critique
      */
     private $content;
 
+    /**
+     * @var Movie
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="critiques")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $movie;
 
     /**
      * Get id
@@ -92,5 +99,29 @@ class Critique
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set movie
+     *
+     * @param \AppBundle\Entity\Movie $movie
+     *
+     * @return Critique
+     */
+    public function setMovie(\AppBundle\Entity\Movie $movie)
+    {
+        $this->movie = $movie;
+
+        return $this;
+    }
+
+    /**
+     * Get movie
+     *
+     * @return \AppBundle\Entity\Movie
+     */
+    public function getMovie()
+    {
+        return $this->movie;
     }
 }

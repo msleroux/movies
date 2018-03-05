@@ -35,6 +35,13 @@ class Critique
      */
     private $content;
 
+    /**
+     * @var Movie
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="critiques")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $movie;
 
     /**
      * Get id
