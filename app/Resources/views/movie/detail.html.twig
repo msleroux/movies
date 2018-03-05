@@ -1,39 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
+
+
     <h1>{{ movie.title }} - {{ movie.year }}</h1>
-    <div class="row">
-        <div class="col-sm-8 col-md-6 col-lg-5" >
+    <div class="row align-items-center justify-content-around" style="background-image: url({{ asset('backdrops/'~movie.imdbId~'.jpg')}})">
+
+        <div class="col-sm-7 col-md-6 col-lg-5" >
             <img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film">
         </div>
-        <div class="col-sm-4 col-md-offset-1 col-md-5 col-lg-offset-1 col-lg-6 ">
-            <h4>Plot</h4>
-            <p>{{ movie.plot}}</p>
+        <div id="movie-infos" class="col-sm-4  col-md-5  col-lg-6 ">
 
-            <p>Actors :
+            <h4>Plot</h4>
+            <div>{{ movie.plot}}</div>
+
+            <h5>Stars</h5>
+            <div>Actors :
                 {% for actor in movie.actors %}
                     {{ actor.name }} -
-                {% endfor %}</p>
+                {% endfor %}</div>
 
-            <p>Directors :
+            <div>Directors :
                 {% for director in movie.directors %}
                     {{ director.name }} -
-                {% endfor %}</p>
+                {% endfor %}</div>
 
-            <p>Writers :
+            <div>Writers :
                 {% for writer in movie.writers %}
                     {{ writer.name }} -
-                {% endfor %}</p>
+                {% endfor %}</div>
 
-            <p> Notes : {{ movie.rating }} / 10 - <span class="italique"> {{ movie.votes }} votes </span>
-                </p>
+            <br>
+            <h5>Infos</h5>
+            <div>
+                </span>Runtime : {{ movie.runtime }} min | <span>Note : {{ movie.rating }} / 10 - <span class="italique"> {{ movie.votes }} votes </span>
+
+            </div>
+
+            <div>Genres : {{ movie.genres|join(' | ') }}</div>
+            <br>
+            https://youtu.be/ue80QwXMRHg
+
+
 
         </div>
-
-
     </div>
-
-
-
-
+    <br>
+    <div class="trailer">
+    <iframe width="400" height="225" src="https://www.youtube.com/embed/{{ movie.trailerId }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <!----> <div><a href="https://youtu.be/">voir le trailer sur Youtube </a></div>
+    </div>
 {% endblock %}
