@@ -3,13 +3,9 @@ header{
 
 }
 
-header>a{
-    text-decoration: none;
-    color:whitesmoke;
-}
+
 #header-jumbo{
     background-image: url("../img/metal-plate.png");
-
 }
 
 #header-title{
@@ -24,11 +20,11 @@ main{
     align-self: center;
 
 }
-
 header a {
     color:whitesmoke;
-}
+    text-decoration: none;
 
+}
 header a:link {
     text-decoration: none;
 
@@ -56,4 +52,18 @@ body{
 
 .italique{
     font-style: italic;
+}
+#movie-infos{
+    margin: auto;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.7;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+
+}
+
+#movie-infos div,h4,h5 {
+    margin: 5%;
+    font-weight: bold;
+    color: #000000;
 }
