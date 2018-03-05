@@ -2,4 +2,12 @@
 
 {% block main %}
     <h1>Welcome on movies!</h1>
+
+    {% for movie in movies %}
+        <a href="{{ path('movie_detail',{id: movie.id}) }}">
+            <img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film">
+        </a>
+
+    {% endfor %}
+
 {% endblock %}

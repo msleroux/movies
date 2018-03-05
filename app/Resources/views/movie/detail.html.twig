@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>{{ movie.title }}</h1>
+    <div class="row">
+        <div class="col-sm-8 col-md-6 col-lg-5" >
+            <img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film">
+        </div>
+        <div class="col-sm-4 col-md-offset-1 col-md-5 col-lg-offset-1 col-lg-6 ">
+            <h4>Plot</h4>
+            <p>{{ movie.plot}}</p>
+
+            <p>Actors :
+                {% for actor in movie.actors %}
+                    {{ actor.name }},
+                {% endfor %}</p>
+
+            <p>Directors :
+                {% for director in movie.directors %}
+                    {{ director.name }},
+                {% endfor %}</p>
+
+            <p>Writers :
+                {% for writer in movie.writers %}
+                    {{ writer.name }},
+                {% endfor %}</p>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

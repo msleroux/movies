@@ -19,18 +19,28 @@
                     </a>
 
                 </div>
-
+                <br>
+                <nav>
+                    <ul class="nav navbar-default">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ path('home') }}">Home</a>
+                        </li>
+                    </ul>
+                </nav>
 
             </header>
-            <br>
-            <nav>
-                <ul class="nav navbar-default">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('home') }}">Home</a>
-                    </li>
-                </ul>
-            </nav>
+
             <hr>
+
+            {# Affiche les flash messages s'ils existent#}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             <main>
                 {% block main %}{% endblock %}
                 {% block javascripts %}{% endblock %}
