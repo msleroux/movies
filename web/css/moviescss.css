@@ -16,11 +16,8 @@ header{
 h1{
     color:whitesmoke;
 }
-main{
-    align-self: center;
 
 
-}
 header a,footer a {
     color:whitesmoke;
     text-decoration: none;

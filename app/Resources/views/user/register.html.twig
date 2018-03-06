@@ -4,12 +4,13 @@
 
     <h1>Create an account</h1>
 
-        {{ form_start(registerForm) }}
-        {{ form_widget(registerForm) }}
+    {{ form_start(registerForm, {'attr': {'novalidate': 'novalidate'}}) }}
 
-        <button type="submit" class="btn btn-outline-primary">Create your Movies! account </button>
+    {{ form_widget(registerForm) }}
 
-        {{ form_end(registerForm) }}
+    <button type="submit" class="btn btn-outline-primary">Create your Movies! account </button>
+
+    {{ form_end(registerForm) }}
 
 
 {% endblock %}
