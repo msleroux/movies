@@ -1,3 +1,5 @@
+#_____________ MOVIE ___________________#
+
 home:
     path:     /
     defaults: { _controller: AppBundle:Default:home }
@@ -6,3 +8,20 @@ movie_detail:
     path: /detail/{id}
     defaults: { _controller: AppBundle:Movie:detail }
 
+
+
+
+
+#_______________  USER  _________________#
+register:
+    path: /register
+    defaults: {_controller: AppBundle:User:register}
+
+# route vers la page de connexion
+# le nom de route login est utilisé dans security.yml
+login:
+    path: /login
+    defaults: {_controller: AppBundle:User:login}
+
+logout:
+    path: /logout
