@@ -13,6 +13,8 @@ movie_detail:
 
 
 #_______________  USER  _________________#
+
+
 register:
     path: /register
     defaults: {_controller: AppBundle:User:register}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h1>Create an account</h1>
+
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+
+        <button type="submit" class="btn btn-outline-primary">Create your Movies! account </button>
+
+        {{ form_end(registerForm) }}
+
+
+{% endblock %}
+

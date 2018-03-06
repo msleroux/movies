@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,10 +29,21 @@ class Critique
      */
     private $title;
 
+
+
+
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner votre commentaire !")
+     * @Assert\Length(
+     *      min=5,
+     *      max=255,
+     *      minMessage="5 caractères minimum SVP !",
+     *      maxMessage="255 caractères max SVP !"
+     * )
+     *
+     * @ORM\Column(name="content", type="text", length=255)
      */
     private $content;
 
