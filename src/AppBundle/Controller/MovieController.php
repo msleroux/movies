@@ -37,7 +37,7 @@ class MovieController extends Controller
                 $critique->setUser($this->getUser());
 
                 //$movie->addCritique($critique);
-                //$user->addCritique($critique);
+                //$user->addCritique($critique); PAS BESOIN
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($critique);

@@ -264,4 +264,9 @@ class User implements UserInterface
     {
         return $this->critiques;
     }
+
+    public function __toString()
+    {
+       return $this->getUsername();
+    }
 }

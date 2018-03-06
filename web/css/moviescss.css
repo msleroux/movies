@@ -13,10 +13,16 @@ header{
     font-size: xx-large;
 }
 
-h1,h6{
+h1,h6,hr{
     color:whitesmoke;
+    border-color:whitesmoke;
 }
 
+.black{
+    background-color: #262626 ;
+    color:whitesmoke;
+    border-color: whitesmoke;
+}
 
 header a,footer a {
     color:whitesmoke;

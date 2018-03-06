@@ -50,12 +50,12 @@
     <iframe width="400" height="225" src="https://www.youtube.com/embed/{{ movie.trailerId }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <!----> <div><a href="https://youtu.be/">voir le trailer sur Youtube </a></div>
     </div>
-
+    <hr>
     <div>
         <h6>Reviews </h6>
     </div>
     {% for critique in movie.critiques %}
-        <li class="list-group-item">
+        <li class="list-group-item black">
             <div class=>Review of <span id="auteur">{{ critique.user }}</span>
                 - crée le {{ critique.dateCreated|date("d-m-Y") }}
                 <div>{{ critique.content }}</div>
@@ -68,7 +68,7 @@
         <h6> Post your review ! </h6>
         {{ form_start(critiqueForm,{attr: {'novalidate':'novalidate'}}) }}{# c'est le controller qui se charge d'afficher cettepage  donc on doit y créer todoForm#}
         {{ form_widget(critiqueForm) }}
-        <button type="submit" class="btn btn-primary">Envoyer !</button>
+        <button type="submit" class="btn btn-outline-primary">Envoyer !</button>
         {{ form_end(critiqueForm) }}
     </div>
 {% endblock %}
