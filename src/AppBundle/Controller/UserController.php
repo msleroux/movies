@@ -43,7 +43,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash("success","Bienvenue !");
+            $this->addFlash("success","Welcome !");
 
             return $this->redirectToRoute("home");
         }

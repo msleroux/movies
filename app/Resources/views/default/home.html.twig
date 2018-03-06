@@ -2,6 +2,10 @@
 
 {% block main %}
     <h1>Welcome on movies!</h1>
+    {{ form_start(formFilter,{'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(formFilter) }}
+    {{ form_end(formFilter) }}
+
     <div class="container"  style="background-image: url('../img/bobine3.jpg')";>
         <div class="row">
             {% for movie in movies %}

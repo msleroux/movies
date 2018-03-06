@@ -10,4 +10,56 @@ namespace AppBundle\Repository;
  */
 class MovieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findWithFilters($selectedGenre = null,$selectedAnneeMin = 1915,$selectedAnneeMax = 2019,$recherche = 'a'){
+
+        $qb = $this->createQueryBuilder('m'); // on est déjà dans Movie, on donne juste l'alias
+
+        $qb
+            ->join('m.genres', 'g')
+            ->addSelect('g')
+            ->join('m.actors','a')
+            ->addSelect('a')
+            ->join('m.directors', 'd')
+            ->addSelect('d')
+            ->join('m.writers','w')
+            ->addSelect('w');
+            //->addOrderBy('m.id','ASC');
+
+        if($selectedGenre){
+            $qb
+                ->andWhere('g = :genre')
+                ->setParameter('genre', $selectedGenre);
+        }
+
+        if($selectedAnneeMin){
+            $qb
+                ->andWhere('m.year >= :anneeMin')
+                ->setParameter('anneeMin', $selectedAnneeMin);
+        }
+
+        if($selectedAnneeMax){
+            $qb
+                ->andWhere('m.year <= :anneeMax')
+                ->setParameter('anneeMax', $selectedAnneeMax);
+        }
+
+        if($recherche){
+            $qb
+                ->andWhere('w.name LIKE :recherche')
+                ->orWhere('d.name LIKE :recherche')
+                ->orWhere('a.name LIKE :recherche')
+                ->setParameter('recherche', '%'.$recherche.'%');
+
+        }
+
+
+        $qb->setMaxResults(50);
+        dump($qb);
+        $query= $qb->getQuery();
+        dump($query);
+
+
+     return $query->getResult();
+
+    }
 }

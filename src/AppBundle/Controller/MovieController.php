@@ -43,7 +43,7 @@ class MovieController extends Controller
                 $em->persist($critique);
 
                 $em->flush();
-                $this->addFlash("success", "Votre commentaire a bien été ajoutée");
+                $this->addFlash("success", "Your review has been added !");
 
                 return $this->redirectToRoute("movie_detail",[
                     "id"=>$id
@@ -51,7 +51,7 @@ class MovieController extends Controller
 
             }
         } else {
-            $this->addFlash("error", "Vous devez être connecté !");
+            $this->addFlash("error", "You must be logged in !");
         }
 
 
