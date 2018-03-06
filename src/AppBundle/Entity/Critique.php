@@ -48,6 +48,22 @@ class Critique
     private $content;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreated", type="datetime")
+     */
+    private $dateCreated;
+
+
+    public function __construct()
+    {
+        $this->setDateCreated(new \DateTime());
+    }
+
+
+
+
+    /**
      * @var Movie
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="critiques")
@@ -167,5 +183,33 @@ class Critique
     public function getUser()
     {
         return $this->user;
+    }
+
+
+
+
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Critique
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
     }
 }

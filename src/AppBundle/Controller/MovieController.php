@@ -2,18 +2,63 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Critique;
 use AppBundle\Entity\Movie;
+use AppBundle\Form\CritiqueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class MovieController extends Controller
 {
-    public function detailAction($id)
+    public function detailAction($id, Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Movie::class);
-        $movie = $repo->find($id);
+        // partie movie
+        $repoMovie = $this->getDoctrine()->getRepository(Movie::class);
+        $movie = $repoMovie->find($id);
 
 
+        // partie commentaires
 
-        return $this->render('movie/detail.html.twig', ["movie"=>$movie]);
+            // on crée un nouvel objet critique
+            $critique = new Critique();
+            // on crée le formulaire
+            $critiqueForm = $this->createForm(CritiqueType::class,$critique);
+
+        //si le user a le droit, on gère sa
+        if ($this->isGranted("ROLE_USER")) {
+            // on hydrate l'objet = on met automatiquement dans la var critique qu'on lui a passé au dessus
+            $critiqueForm->handleRequest($request);
+
+
+            //si formulaire soumis, on set movie et user et on persist les données
+            if($critiqueForm->isSubmitted()&&$critiqueForm->isValid()){
+
+                $critique->setMovie($movie);
+                $critique->setUser($this->getUser());
+
+                //$movie->addCritique($critique);
+                //$user->addCritique($critique);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($critique);
+
+                $em->flush();
+                $this->addFlash("success", "Votre commentaire a bien été ajoutée");
+
+                return $this->redirectToRoute("movie_detail",[
+                    "id"=>$id
+                ]);
+
+            }
+        } else {
+            $this->addFlash("error", "Vous devez être connecté !");
+        }
+
+
+        return $this->render('movie/detail.html.twig', [
+            "movie"=>$movie,
+            "critiqueForm"=>$critiqueForm->createView()]);
     }
+
+
 }

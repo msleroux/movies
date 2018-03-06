@@ -13,7 +13,10 @@ class CritiqueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('movie')->add('user');
+        $builder
+            ->add('title')
+            ->add('content');
+
     }/**
      * {@inheritdoc}
      */

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,12 +29,39 @@ class Critique
      */
     private $title;
 
+
+
+
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner votre commentaire !")
+     * @Assert\Length(
+     *      min=5,
+     *      max=255,
+     *      minMessage="5 caractères minimum SVP !",
+     *      maxMessage="255 caractères max SVP !"
+     * )
+     *
+     * @ORM\Column(name="content", type="text", length=255)
      */
     private $content;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreated", type="datetime")
+     */
+    private $dateCreated;
+
+
+    public function __construct()
+    {
+        $this->setDateCreated(new \DateTime());
+    }
+
+
+
 
     /**
      * @var Movie
@@ -132,4 +160,32 @@ class Critique
     {
         return $this->movie;
     }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Critique
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+
+
+
 }
