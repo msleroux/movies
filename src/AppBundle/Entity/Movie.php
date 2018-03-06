@@ -129,7 +129,6 @@ class Movie
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Critique", mappedBy="movie")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $critiques;
 

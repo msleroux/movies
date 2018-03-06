@@ -129,7 +129,6 @@ class Movie
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Critique", mappedBy="movie")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $critiques;
 
@@ -528,5 +527,39 @@ class Movie
     public function getWriters()
     {
         return $this->writers;
+    }
+
+    /**
+     * Add critique
+     *
+     * @param \AppBundle\Entity\Critique $critique
+     *
+     * @return Movie
+     */
+    public function addCritique(\AppBundle\Entity\Critique $critique)
+    {
+        $this->critiques[] = $critique;
+
+        return $this;
+    }
+
+    /**
+     * Remove critique
+     *
+     * @param \AppBundle\Entity\Critique $critique
+     */
+    public function removeCritique(\AppBundle\Entity\Critique $critique)
+    {
+        $this->critiques->removeElement($critique);
+    }
+
+    /**
+     * Get critiques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCritiques()
+    {
+        return $this->critiques;
     }
 }
