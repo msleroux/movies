@@ -70,12 +70,11 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($item);
+        $em->flush();
 
+        $this->addFlash("success", "the movie has been added to our watchList");
 
-        $watchlist = $user->getWatchItems();
-
-
-        return $this->redirectToRoute('watchlist');
+        return $this->redirectToRoute("movie_detail", ["id" => $movie->getId()]);
 
     }
 
