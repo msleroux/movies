@@ -63,6 +63,10 @@ class DefaultController extends Controller
             $selectedAnneeMax = $formFilter->get('anneeMax')->getData();
             $recherche = $formFilter->get('recherche')->getData();
 
+            if ($selectedAnneeMin>$selectedAnneeMax){
+                $this->addFlash("error", " Selecting years : starting is after ending !");
+            }
+
             $movies = $repo->findWithFilters($selectedGenre,$selectedAnneeMin,$selectedAnneeMax,$recherche);
             dump($movies);
         }
