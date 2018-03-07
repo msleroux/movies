@@ -72,10 +72,14 @@ body{
     color: #000000;
 }
 
-.trailer{
+.center{
     text-align: center;
 }
 
 .loggedIn{
     color:greenyellow;
+}
+
+.margin {
+    margin:5px;
 }

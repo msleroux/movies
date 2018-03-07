@@ -132,7 +132,13 @@ class Movie
      */
     private $critiques;
 
-   
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Critique", mappedBy="movie")
+     */
+    private $watchItems;
+
     /**
      * Get id
      *

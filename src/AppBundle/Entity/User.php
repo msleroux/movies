@@ -79,6 +79,13 @@ class User implements UserInterface
      */
     private $critiques;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WatchListItem", mappedBy="user")
+     */
+    private $watchItems;
+
 
     /**
      * Get id
@@ -229,6 +236,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->critiques = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->watchItems =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -268,5 +276,39 @@ class User implements UserInterface
     public function __toString()
     {
        return $this->getUsername();
+    }
+
+    /**
+     * Add watchItem
+     *
+     * @param \AppBundle\Entity\Critique $watchItem
+     *
+     * @return User
+     */
+    public function addWatchItem(\AppBundle\Entity\Critique $watchItem)
+    {
+        $this->watchItems[] = $watchItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove watchItem
+     *
+     * @param \AppBundle\Entity\Critique $watchItem
+     */
+    public function removeWatchItem(\AppBundle\Entity\Critique $watchItem)
+    {
+        $this->watchItems->removeElement($watchItem);
+    }
+
+    /**
+     * Get watchItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWatchItems()
+    {
+        return $this->watchItems;
     }
 }

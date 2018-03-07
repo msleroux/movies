@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\User;
+use AppBundle\Entity\WatchListItem;
 use AppBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,33 @@ class UserController extends Controller
             //passe la view formulaire à la page register
             "registerForm"=>$registerForm->createView()
         ]);
+    }
+
+
+    public function watchitemAction($imdbId)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $repoMovie = $this->getDoctrine()->getRepository(Movie::class);
+        $movie = $repoMovie->findOneBy(['imdbId' => $imdbId]);
+
+        $user = $this->getUser();
+
+        $item =  new WatchListItem($user,$movie);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($item);
+
+
+        $watchlist = $user->getWatchItems();
+
+
+        return $this->redirectToRoute('watchlist');
+
+    }
+
+    public function watchlistAction()
+    {
+        return $this->render('user/watchlist.html.twig');
     }
 
     //page d'inscription (création du user)

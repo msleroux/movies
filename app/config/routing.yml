@@ -27,3 +27,13 @@ login:
 
 logout:
     path: /logout
+
+watchitem:
+    path: /want-to-watch/{imdbId}
+    defaults: {_controller: AppBundle:User:watchitem}
+
+watchlist:
+    path: /want-to-watch/
+    defaults: {_controller: AppBundle:User:watchlist}
+
+

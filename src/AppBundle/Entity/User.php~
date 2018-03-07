@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- * @UniqueEntity("username",message="ce pseudo n'est pas dispo !")
- * @UniqueEntity("email",message="Cet email est déjà inscrit ici !")
+ * @UniqueEntity("username",message="This username is already used !")
+ * @UniqueEntity("email",message="This email is already registered for an account !")
  *
  * @ORM\Table(name="app_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -33,15 +33,15 @@ class User implements UserInterface
      *     min=4,
      *     max=30,
      * )
-     * @Assert\NotBlank(message="Veuillez chosiir un pseudo !")
-     * @Assert\Regex("/^[a-z0-9_-]+$/",message="Votre pseudo doit matcher avec notre Regex !")
+     * @Assert\NotBlank(message="Please choose a username !")
+     * @Assert\Regex("/^[a-z0-9_-]+$/",message="your username must match our regex!")
      * @ORM\Column(name="username", type="string", length=30, unique=true)
      */
     private $username;
 
     /**
      * @var string
-     * @Assert\NotBlank(message="Veuillez indiquer votre email !")
+     * @Assert\NotBlank(message="Please enter an email !")
      * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
@@ -51,7 +51,7 @@ class User implements UserInterface
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(
-     *     min=8,
+     *     min=6,
      *     max=4000
      *     )
      * @ORM\Column(name="password", type="string", length=255)
@@ -78,6 +78,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Critique", mappedBy="user")
      */
     private $critiques;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Critique", mappedBy="user")
+     */
+    private $watchItems;
 
 
     /**
@@ -263,5 +270,10 @@ class User implements UserInterface
     public function getCritiques()
     {
         return $this->critiques;
+    }
+
+    public function __toString()
+    {
+       return $this->getUsername();
     }
 }

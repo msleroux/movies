@@ -6,8 +6,13 @@
     <h1>{{ movie.title }} - {{ movie.year }}</h1>
     <div class="row align-items-center justify-content-around" style="background-image: url({{ asset('backdrops/'~movie.imdbId~'.jpg')}})">
 
-        <div class="col-sm-7 col-md-6 col-lg-5" >
-            <img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film">
+        <div class="col-sm-7 col-md-6 col-lg-5 center" >
+            <div class="center margin"><img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film"></div>
+            <div class="center margin">
+                <a href="{{ path('watchitem', {imdbId : movie.imdbId}) }}">
+                    <button type="button" class="btn btn-danger">Add to my watch List ❤ !</button>
+                </a>
+            </div>
         </div>
         <div id="movie-infos" class="col-sm-4  col-md-5  col-lg-6 ">
 
@@ -33,7 +38,7 @@
             <br>
             <h5>Infos</h5>
             <div>
-                Runtime : {{ movie.runtime }} min | Note : {{ movie.rating }} / 10 - <span class="italique"> {{ movie.votes }} votes </span>
+                {{ movie.year}} | Runtime : {{ movie.runtime }} min | Note : {{ movie.rating }} / 10 - <span class="italique"> {{ movie.votes }} votes </span>
 
             </div>
 
@@ -46,7 +51,7 @@
         </div>
     </div>
     <br>
-    <div class="trailer">
+    <div class="center">
     <iframe width="400" height="225" src="https://www.youtube.com/embed/{{ movie.trailerId }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <!----> <div><a href="https://youtu.be/">voir le trailer sur Youtube </a></div>
     </div>
@@ -64,7 +69,7 @@
     <br>
     <hr>
 
-    <div>
+    <div class="col-sm-12">
         <h6> Post your review ! </h6>
         {{ form_start(critiqueForm,{attr: {'novalidate':'novalidate'}}) }}{# c'est le controller qui se charge d'afficher cettepage  donc on doit y créer todoForm#}
         {{ form_widget(critiqueForm) }}

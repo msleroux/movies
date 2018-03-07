@@ -1,0 +1,82 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * WatchListItem
+ *
+ * @ORM\Table(name="watch_list_item")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WatchListItemRepository")
+ */
+class WatchListItem
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAdded", type="datetime")
+     */
+    private $dateAdded;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="watchItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="watchItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $movie;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateAdded
+     *
+     * @param \DateTime $dateAdded
+     *
+     * @return WatchListItem
+     */
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdded
+     *
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
+}
+

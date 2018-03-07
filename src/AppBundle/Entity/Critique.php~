@@ -188,4 +188,28 @@ class Critique
 
 
 
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Critique
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
 }

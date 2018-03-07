@@ -132,7 +132,13 @@ class Movie
      */
     private $critiques;
 
-   
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\WatchListItem", mappedBy="movie")
+     */
+    private $watchItems;
+
     /**
      * Get id
      *
@@ -561,5 +567,39 @@ class Movie
     public function getCritiques()
     {
         return $this->critiques;
+    }
+
+    /**
+     * Add watchItem
+     *
+     * @param \AppBundle\Entity\Critique $watchItem
+     *
+     * @return Movie
+     */
+    public function addWatchItem(\AppBundle\Entity\Critique $watchItem)
+    {
+        $this->watchItems[] = $watchItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove watchItem
+     *
+     * @param \AppBundle\Entity\Critique $watchItem
+     */
+    public function removeWatchItem(\AppBundle\Entity\Critique $watchItem)
+    {
+        $this->watchItems->removeElement($watchItem);
+    }
+
+    /**
+     * Get watchItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWatchItems()
+    {
+        return $this->watchItems;
     }
 }
