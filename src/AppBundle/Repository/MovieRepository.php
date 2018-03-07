@@ -10,23 +10,16 @@ namespace AppBundle\Repository;
  */
 class MovieRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findWithFilters($selectedGenre = null,$selectedAnneeMin = 1915,$selectedAnneeMax = 2019,$recherche = 'a'){
+    public function findWithFilters($selectedGenre = null,$selectedAnneeMin = 1916,$selectedAnneeMax = 2019,$recherche = 'a'){
 
         $qb = $this->createQueryBuilder('m'); // on est déjà dans Movie, on donne juste l'alias
-
         $qb
-            ->join('m.genres', 'g')
-            ->addSelect('g')
-            ->join('m.actors','a')
-            ->addSelect('a')
-            ->join('m.directors', 'd')
-            ->addSelect('d')
-            ->join('m.writers','w')
-            ->addSelect('w');
-            //->addOrderBy('m.id','ASC');
+            ->addOrderBy('m.year', 'DESC');
 
         if($selectedGenre){
             $qb
+                ->join('m.genres', 'g')
+                ->addSelect('g')
                 ->andWhere('g = :genre')
                 ->setParameter('genre', $selectedGenre);
         }
@@ -45,18 +38,25 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 
         if($recherche){
             $qb
-                ->andWhere('w.name LIKE :recherche')
-                ->orWhere('d.name LIKE :recherche')
-                ->orWhere('a.name LIKE :recherche')
+                ->join('m.actors','a')
+                ->addSelect('a')
+                ->join('m.directors', 'd')
+                ->addSelect('d')
+                ->join('m.writers','w')
+                ->addSelect('w')
+                ->andWhere('w.name LIKE :recherche or d.name LIKE :recherche or a.name LIKE :recherche')
+                //->orWhere('d.name LIKE :recherche') avec le orWhere, la recherche surpasse le filtre des années
+                    // la requete fait where selectedAnnée OR d.name balbla OR a.name
+                //->orWhere('a.name LIKE :recherche')
                 ->setParameter('recherche', '%'.$recherche.'%');
 
         }
 
 
         $qb->setMaxResults(50);
-        dump($qb);
+
         $query= $qb->getQuery();
-        dump($query);
+
 
 
      return $query->getResult();

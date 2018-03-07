@@ -7,6 +7,7 @@ use AppBundle\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,9 +35,18 @@ class DefaultController extends Controller
                 'choice_label'=>'name',
                 'placeholder' => 'Choose an option',
                     ])
-            ->add('anneeMin', IntegerType::class)
+            /**->add('anneeMin', RangeType::class, array(
+                'attr' => array(
+                    'min' => 1916,
+                    'max' => 2018,
+                    'step'  => 1,
+                    'value' => 2005
+                )))*/
+            ->add('anneeMin', IntegerType::class, [
+                'attr' => array('min' =>1916, 'max'=>2018)])
 
-            ->add('anneeMax', IntegerType::class)
+            ->add('anneeMax', IntegerType::class, [
+                    'attr' => array('min' =>1916, 'max'=>2018)])
             ->add('recherche', TextType::class)
             ->add('send', SubmitType::class)
             ->getForm();

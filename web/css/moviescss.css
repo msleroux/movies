@@ -75,3 +75,7 @@ body{
 .trailer{
     text-align: center;
 }
+
+.loggedIn{
+    color:greenyellow;
+}
