@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Movie;
 
 /**
  * MovieRepository
@@ -45,10 +46,11 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
                 ->join('m.writers','w')
                 ->addSelect('w')
                 ->andWhere('w.name LIKE :recherche or d.name LIKE :recherche or a.name LIKE :recherche')
+                ->setParameter('recherche', $recherche);
                 //->orWhere('d.name LIKE :recherche') avec le orWhere, la recherche surpasse le filtre des années
                     // la requete fait where selectedAnnée OR d.name balbla OR a.name
                 //->orWhere('a.name LIKE :recherche')
-                ->setParameter('recherche', '%'.$recherche.'%');
+
 
         }
 
@@ -57,9 +59,73 @@ class MovieRepository extends \Doctrine\ORM\EntityRepository
 
         $query= $qb->getQuery();
 
-
-
-     return $query->getResult();
+        return $query->getResult();
 
     }
+
+    public function findMoviesWithPeople($imdbId)
+    {
+        $qb = $this->createQueryBuilder('m'); // on est déjà dans Movie, on donne juste l'alias
+        $qb
+            ->addSelect('m')
+            ->join('m.writers','w')
+            ->join('m.directors','d')
+            ->join('m.actors','a')
+            ->andWhere('w.imdbId = :imdbId')
+            ->orWhere('d.imdbId = :imdbId')
+            ->orWhere('a.imdbId = :imdbId')
+            ->setParameter('imdbId', $imdbId)
+            ->addOrderBy('m.year', 'DESC');
+
+        $qb->setMaxResults(50);
+
+        $query= $qb->getQuery();
+
+        return $query->getResult();
+
+    }
+
+
+    public function findSuggested(Movie $movie){
+
+        // on va proposer des films avec meme genre, année proche, réalisateur
+
+        //$randomGenre = rand(0,count($movie->getGenres()));
+        $randomDirector = rand(0,count($movie->getDirectors()));
+        $random = rand(0,1);
+
+        $qb = $this->createQueryBuilder('m'); // on est déjà dans Movie, on donne juste l'alias
+        $qb
+            ->addSelect('m')
+            ->join('m.genres', 'g')
+            ->join('m.directors','d')
+            ->andWhere('m.title != :title')
+            ->setParameter('title',$movie->getTitle())
+            ->andWhere('g = :genre')
+            ->setParameter('genre',$movie->getGenres()[0])
+            ->andWhere('m.year between :yearMin and :yearMax')
+            ->setParameter('yearMin',$movie->getYear()-5)
+            ->setParameter('yearMax',$movie->getYear()+5);
+
+
+            if ($random >0) {
+                $qb
+                    ->orWhere('d = :director')
+                    ->setParameter('director',$movie->getDirectors()[$randomDirector])
+                    ->addOrderBy('m.year', 'DESC');
+
+            }
+
+
+        $qb->setMaxResults(5);
+
+
+        $query= $qb->getQuery();
+
+        return $query->getResult();
+
+
+    }
+
+
 }

@@ -9,9 +9,16 @@
         <div class="col-sm-7 col-md-6 col-lg-5 center" >
             <div class="center margin"><img src="{{ asset('posters/'~movie.imdbId~'.jpg')}}" alt="poster film"></div>
             <div class="center margin">
-                <a href="{{ path('watchitem', {imdbId : movie.imdbId}) }}">
-                    <button type="button" class="btn btn-danger">Add to my watch List ❤ !</button>
+                {% if isInWatchList %}
+                <a href="{{ path('watchdelete', {imdbId : movie.imdbId, pageOrigine: 'movie_detail'}) }}">
+                    <button id="btn-remove-WL" type="button" class="btn btn-info">Remove from my WatchList !</button>
                 </a>
+                {% else %}
+                    <a href="{{ path('watchitem', {imdbId : movie.imdbId}) }}">
+                        <button id="btn-WL" type="button" class="btn btn-danger">Add to my watch List ❤ !</button>
+                    </a>
+                {% endif %}
+
             </div>
         </div>
         <div id="movie-infos" class="col-sm-4  col-md-5  col-lg-6 ">
@@ -22,17 +29,17 @@
             <h5>Stars</h5>
             <div>Actors :
                 {% for actor in movie.actors %}
-                    {{ actor.name }} -
+                    <a href="{{ path('movie_people', {imdbId : actor.imdbId})}}">{{ actor.name }}</a> -
                 {% endfor %}</div>
 
             <div>Directors :
                 {% for director in movie.directors %}
-                    {{ director.name }} -
+                    <a href="{{ path('movie_people', {imdbId : director.imdbId})}}">{{ director.name }}</a> -
                 {% endfor %}</div>
 
             <div>Writers :
                 {% for writer in movie.writers %}
-                    {{ writer.name }} -
+                    <a href="{{ path('movie_people', {imdbId : writer.imdbId})}}">{{ writer.name }}</a> -
                 {% endfor %}</div>
 
             <br>
@@ -55,6 +62,21 @@
     <iframe width="400" height="225" src="https://www.youtube.com/embed/{{ movie.trailerId }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <!----> <div><a href="https://youtu.be/">voir le trailer sur Youtube </a></div>
     </div>
+
+    <hr>
+    <div>
+        <h6>Movies you may like </h6>
+
+        <div style="display:inline-flex">
+            {% for item in suggested %}
+                 <div class="card-body">
+                     <a href="{{ path('movie_detail',{id: item.id}) }}" class="btn btn-dark margin">
+                        <img class="card-img-top resize-mini" src="{{ asset('posters/'~item.imdbId~'.jpg') }}" alt="Card image cap">
+                     </a>
+                 </div>
+            {% endfor %}
+        </div>
+    </div>
     <hr>
     <div>
         <h6>Reviews </h6>
@@ -68,14 +90,19 @@
     {% endfor %}
     <br>
     <hr>
+    <h6> Post your review ! </h6>
+    {% if not is_granted('ROLE_USER') %}
+        <div>You must be logged in to post a review. Please register and join us !</div>
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+         <div class="col-sm-12">
 
-    <div class="col-sm-12">
-        <h6> Post your review ! </h6>
-        {{ form_start(critiqueForm,{attr: {'novalidate':'novalidate'}}) }}{# c'est le controller qui se charge d'afficher cettepage  donc on doit y créer todoForm#}
-        {{ form_widget(critiqueForm) }}
-        <button type="submit" class="btn btn-outline-primary">Envoyer !</button>
-        {{ form_end(critiqueForm) }}
-    </div>
+            {{ form_start(critiqueForm,{attr: {'novalidate':'novalidate'}}) }}{# c'est le controller qui se charge d'afficher cettepage  donc on doit y créer todoForm#}
+            {{ form_widget(critiqueForm) }}
+            <button type="submit" class="btn btn-outline-primary">Envoyer !</button>
+            {{ form_end(critiqueForm) }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block title %}{{ movie.title }} |{{ parent() }}{% endblock %}

@@ -10,4 +10,6 @@ namespace AppBundle\Repository;
  */
 class PeopleRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
 }

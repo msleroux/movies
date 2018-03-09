@@ -46,11 +46,12 @@ body{
 }
 
 
-#card{
-    margin:20px;
+.card{
+    margin:10px;
 }
 
-.card-body{
+.card-body, .card-footer{
+    background-color: #262626;
     color:black;
 }
 
@@ -76,10 +77,22 @@ body{
     text-align: center;
 }
 
+.flex{
+    display: flex;
+}
+
 .loggedIn{
     color:greenyellow;
 }
 
 .margin {
     margin:5px;
+}
+
+.hidden{
+    display: none;
+}
+
+.resize-mini {
+    width: 10rem;
 }

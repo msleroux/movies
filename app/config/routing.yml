@@ -8,8 +8,9 @@ movie_detail:
     path: /detail/{id}
     defaults: { _controller: AppBundle:Movie:detail }
 
-
-
+movie_people:
+    path: /movie/people/{imdbId}
+    defaults: { _controller: AppBundle:Movie:people }
 
 
 #_______________  USER  _________________#
@@ -28,12 +29,40 @@ login:
 logout:
     path: /logout
 
+
 watchitem:
     path: /want-to-watch/{imdbId}
-    defaults: {_controller: AppBundle:User:watchitem}
+    defaults: {_controller: AppBundle:WatchList:add}
 
 watchlist:
     path: /want-to-watch/
-    defaults: {_controller: AppBundle:User:watchlist}
+    defaults: {_controller: AppBundle:WatchList:list}
+
+watchdelete:
+    path: /no-more-want-to-watch/{imdbId}/{pageOrigine}
+    defaults: {_controller: AppBundle:WatchList:delete}
+
+
+api_watchlist_add:
+    path: /home/want-to-watch/{imdbId}
+    defaults: {_controller: AppBundle:WatchList:postAdd}
+    methods: [POST]
+
+api_watchlist_delete:
+    path: /home/no-more-want-to-watch/{imdbId}
+    defaults: {_controller: AppBundle:WatchList:postDelete}
+    methods: [POST]
+
+#______________________  ADMIN ______________________#
+admin_users:
+    path: /admin/users
+    defaults: {_controller: AppBundle:Admin:users}
+
+admin_user_delete:
+    path: /admin/users/delete
+
+admin_reviews:
+    path: /admin/reviews
+    defaults: {_controller: AppBundle:Admin:reviews}
 
 

@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Critique;
 use AppBundle\Entity\Movie;
+use AppBundle\Entity\People;
+use AppBundle\Entity\WatchListItem;
 use AppBundle\Form\CritiqueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +19,11 @@ class MovieController extends Controller
         $movie = $repoMovie->find($id);
 
 
+        $suggested = $repoMovie->findSuggested($movie);
+
+
+        dump($suggested);
+
         // partie commentaires
 
             // on crée un nouvel objet critique
@@ -24,13 +31,33 @@ class MovieController extends Controller
             // on crée le formulaire
             $critiqueForm = $this->createForm(CritiqueType::class,$critique);
 
-        //si le user a le droit, on gère sa
+            // initialisation du boolean pour affichage page detail
+        $isInWatchList = false;
+
+
+        $repoWatchItems = $this->getDoctrine()->getRepository(WatchListItem::class);
+        $previousItem = $repoWatchItems->findOneBy([
+            "movie"=>$movie,
+            "user" => $this->getUser(),
+        ]);
+
+        // si dejà associé user et film => le boolean passe à true
+        if($previousItem != null){
+            $isInWatchList = true;
+        }
+
+        //si le user a le droit, on gère la request (formulaire)
         if ($this->isGranted("ROLE_USER")) {
             // on hydrate l'objet = on met automatiquement dans la var critique qu'on lui a passé au dessus
             $critiqueForm->handleRequest($request);
 
 
-            //si formulaire soumis, on set movie et user et on persist les données
+
+
+            //si le user est connecté, on va vérifier si le movie est dans sa watchlist
+
+
+            //si formulaire soumis, on set movie et user et on persist la critique
             if($critiqueForm->isSubmitted()&&$critiqueForm->isValid()){
 
                 $critique->setMovie($movie);
@@ -46,18 +73,43 @@ class MovieController extends Controller
                 $this->addFlash("success", "Your review has been added !");
 
                 return $this->redirectToRoute("movie_detail",[
-                    "id"=>$id
+                    "id"=>$id,
+                    "isInWatchList"=>$isInWatchList,
                 ]);
 
             }
-        } else {
-            $this->addFlash("error", "You must be logged in !");
-        }
+
+            }
+
 
 
         return $this->render('movie/detail.html.twig', [
             "movie"=>$movie,
-            "critiqueForm"=>$critiqueForm->createView()]);
+            "critiqueForm"=>$critiqueForm->createView(),
+            "suggested"=>$suggested,
+            "isInWatchList"=>$isInWatchList,
+        ]);
+    }
+
+
+
+    // ___________________________ RECUPERATION MOVIE PAR PEOPLE _____________________ //
+
+    public function peopleAction($imdbId)
+    {
+
+        // récupérer le repo des people
+        $repo = $this->getDoctrine()->getRepository(Movie::class);
+
+        // faire requete spéciale findMovieWithPeople(idpeople) dans le movie repository
+        $movies = $repo->findMoviesWithPeople($imdbId);
+
+
+        //on envoie la page de resultat
+        return $this->render('movie/results.html.twig', [
+            "movies"=>$movies
+        ]);
+
     }
 
 

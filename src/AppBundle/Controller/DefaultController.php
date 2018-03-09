@@ -67,12 +67,21 @@ class DefaultController extends Controller
                 $this->addFlash("error", " Selecting years : starting is after ending !");
             }
 
-            $movies = $repo->findWithFilters($selectedGenre,$selectedAnneeMin,$selectedAnneeMax,$recherche);
-            dump($movies);
-        }
+            $em    = $this->get('doctrine.orm.entity_manager');
+            $movies  = $repo->findWithFilters($selectedGenre,$selectedAnneeMin,$selectedAnneeMax,$recherche);
 
-        //dump($movies);
-        //die();
+
+
+            //$query = $em->createQuery($dql);
+
+            //$movies = $this->get('knp_paginator');
+            //$pagination = $paginator->paginate(
+              //  $query, /* query NOT result */
+                //$request->query->getInt('page', 1)/*page number*/,
+                //10/*limit per page*/
+            //);
+
+        }
 
         return $this->render('default/home.html.twig', [
             "movies"=>$movies,

@@ -6,18 +6,20 @@
         <div class="container"  style="background-image: url('../img/bobine3.jpg')";>
             <div class="row">
                 {% for item in app.user.watchitems %}
-                    <div id="card" class="col-sm-6 col-lg-4">
-                        <div class="card" style="width: 18rem;">
+                    <div class="card mb-3 center" style="width: 12rem;">
+                        <div class="card-body ">
                             <img class="card-img-top" src="{{ asset('posters/'~item.movie.imdbId~'.jpg') }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ item.movie.title }}</h5>
-                                <a href="{{ path('movie_detail',{id: item.movie.id}) }}" class="btn btn-outline-primay">See more</a>
-                            </div>
                         </div>
+                            <div class="card-footer text-muted black">
+                                <a href="{{ path('movie_detail',{id: item.movie.id}) }}" class="btn btn-dark margin">See more</a>
+                                <a href="{{ path('watchdelete',{imdbId: item.movie.imdbId, pageOrigine:'watchlist'}) }}" class="btn btn-warning margin">Remove</a>
+                            </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
+
+
 
 
 {% endblock %}

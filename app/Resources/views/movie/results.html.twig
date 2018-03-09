@@ -2,12 +2,8 @@
 
 {% block main %}
     <div style="background-image: url('../img/bobine3.jpg');">
-        <h1>Welcome on movies!</h1>
-        {{ form_start(formFilter,{'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_widget(formFilter) }}
-        {{ form_end(formFilter) }}
-        <br>
-        <hr>
+        <h1>Others movie with this person </h1>
+
         <div class="container center">
             <div class="row">
                 {% for movie in movies %}
@@ -36,16 +32,3 @@
 
 {% endblock %}
 
-
-{#
-
-<div id="card" class="col-sm-6 col-lg-4">
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{ asset('posters/'~movie.imdbId~'.jpg') }}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{ movie.title }}</h5>
-            <a href="{{ path('movie_detail',{id: movie.id}) }}" class="btn btn-outline-primay">See more</a>
-        </div>
-    </div>
-</div>
-#}

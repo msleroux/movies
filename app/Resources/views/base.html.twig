@@ -46,6 +46,15 @@
                                 <a class="nav-link active" href="{{ path('login') }}">Log in</a>
                             </li>
                         {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ path('admin_users') }}">Gestion des users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ path('admin_reviews') }}">Gestion des reviews</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </nav>
 

@@ -37,7 +37,7 @@ class WatchListItem
     private $user;
 
     /**
-     * @var User
+     * @var Movie
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Movie", inversedBy="watchItems")
      * @ORM\JoinColumn(nullable=false)

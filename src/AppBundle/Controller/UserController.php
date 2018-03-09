@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Node\Expression\ParentExpression;
 
 
 class UserController extends Controller
@@ -47,7 +48,7 @@ class UserController extends Controller
 
             $this->addFlash("success","Welcome !");
 
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("login");
         }
 
         //affiche la page register.html.twig
@@ -55,32 +56,6 @@ class UserController extends Controller
             //passe la view formulaire à la page register
             "registerForm"=>$registerForm->createView()
         ]);
-    }
-
-
-    public function watchitemAction($imdbId)
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-        $repoMovie = $this->getDoctrine()->getRepository(Movie::class);
-        $movie = $repoMovie->findOneBy(['imdbId' => $imdbId]);
-
-        $user = $this->getUser();
-
-        $item =  new WatchListItem($user,$movie);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($item);
-        $em->flush();
-
-        $this->addFlash("success", "the movie has been added to our watchList");
-
-        return $this->redirectToRoute("movie_detail", ["id" => $movie->getId()]);
-
-    }
-
-    public function watchlistAction()
-    {
-        return $this->render('user/watchlist.html.twig');
     }
 
     //page d'inscription (création du user)

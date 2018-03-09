@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>List of users </h1>
+
+    {% for review in reviews %}
+        <li class="list-group-item">
+           <div class="black">
+               <h6>{{ review.title }}</h6>
+                <p>{{ review.content }}</p>
+
+           </div>
+        </li>
+    {% endfor %}
+
+
+
+
+{% endblock %}
+
+{% block title %}Liste Users - Admin |{{ parent() }}{% endblock %}
