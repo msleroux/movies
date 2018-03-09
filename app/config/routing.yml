@@ -59,7 +59,8 @@ admin_users:
     defaults: {_controller: AppBundle:Admin:users}
 
 admin_user_delete:
-    path: /admin/users/delete
+    path: /admin/users/delete/{id}
+    defaults: {_controller: AppBundle:Admin:userDelete}
 
 admin_reviews:
     path: /admin/reviews

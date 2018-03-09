@@ -11,7 +11,7 @@
                 <div class="card-header">Review from {{ review.user.username }}</div>
                 <div class="card-body text-white">
                     <p class="card-text">{{ review.title }} reviews </p>
-                    <p>registered since {{ review.content}}</p>
+                    <p>r{{ review.content}}</p>
                     <a href="{{ path('admin_reviews_delete',{id:review.id}) }}" class="btn btn-danger margin">Delete this review</a>
 
                 </div>

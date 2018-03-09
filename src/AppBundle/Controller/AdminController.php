@@ -44,5 +44,34 @@ class AdminController extends Controller
             "libelle" => $user->getUsername()]);
 
     }
+
+    public function userDeleteAction($id)
+    {
+        // on récupère le repo des User
+        $repoUser = $this->getDoctrine()->getRepository(User::class);
+        // on récupère le user à supprimer via son $id
+        $user = $repoUser->find($id);
+
+        // on va "archiver" le user, car on veut garder ses reviews
+        // on change son mail si jamais il veut se réinscrire plus tard
+        // son nom
+        // on lui donne un role type "archive" comme ça il n'a plus accès aux zones user
+        $user->setUsername("Old reviewer");
+        // en fait on ne peut pas changer le nom en old reviewer car username unique donc dès qu'on va vouloir
+        // supprimer un deuxième user ça va bloquer contrainte d'intérité, idem pour
+        $user->setEmail("old@mail.com");
+        $user->setRoles('ROLE_ARCHIVE');
+
+        //on enregistre la modif dans la base avec Doctrine
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash("success","Le compte a été supprimé");
+
+        return $this->redirectToRoute('home');
+
+
+    }
 }
 
