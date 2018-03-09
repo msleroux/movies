@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <h1>List of users </h1>
+    <h1>List of reviews </h1>
+    {% if libelle is defined %}
+        <h3>{{ libelle }}</h3>
+     {% endif %}
+    <div class="container flex" >
+        {% for review in reviews %}
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                <div class="card-header">Review from {{ review.user.username }}</div>
+                <div class="card-body text-white">
+                    <p class="card-text">{{ review.title }} reviews </p>
+                    <p>registered since {{ review.content}}</p>
+                    <a href="{{ path('admin_reviews_delete',{id:review.id}) }}" class="btn btn-danger margin">Delete this review</a>
 
-    {% for review in reviews %}
-        <li class="list-group-item">
-           <div class="black">
-               <h6>{{ review.title }}</h6>
-                <p>{{ review.content }}</p>
-
-           </div>
-        </li>
-    {% endfor %}
-
-
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 
 {% endblock %}

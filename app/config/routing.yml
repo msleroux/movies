@@ -65,4 +65,11 @@ admin_reviews:
     path: /admin/reviews
     defaults: {_controller: AppBundle:Admin:reviews}
 
+admin_reviews_delete:
+    path: /admin/reviews/delete
+
+admin_user_reviews:
+    path: /admin/users/see-his-reviews/{id}
+    defaults: {_controller: AppBundle:Admin:seeReviews}
+
 

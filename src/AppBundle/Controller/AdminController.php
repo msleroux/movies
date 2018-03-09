@@ -29,5 +29,20 @@ class AdminController extends Controller
 
         return $this->render('admin/admin_reviews.html.twig', ["reviews" => $reviews]);
     }
+
+
+
+    public function seeReviewsAction($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($id);
+
+       $reviews = $user->getCritiques();
+
+        return $this->render('admin/admin_reviews.html.twig', [
+            "reviews" => $reviews,
+            "libelle" => $user->getUsername()]);
+
+    }
 }
 
